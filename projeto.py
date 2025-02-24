@@ -13,41 +13,39 @@ numero_telefone_historico = []
 
 urls = {
     "ecommerce": {
-        "https://www.mercadolivre.com.br/",
-        "https://www.amazon.com.br/",
-        "https://www.americanas.com.br/",
-        "https://www.magazineluiza.com.br/",
-        "https://www.casasbahia.com.br/",
-        "https://shopee.com.br/"
+        "https://www.mercadolivre.com.br",
+        "https://www.amazon.com.br",
+        "https://www.americanas.com.br",
+        "https://www.magazineluiza.com.br",
+        "https://www.casasbahia.com.br",
+        "https://shopee.com.br"
     },
     "bancos": {
-        "https://www.caixa.gov.br/",
-        "https://www.santander.com.br/",
-        "https://www.bb.com.br/",
-        "https://nubank.com.br/"
+        "https://www.caixa.gov.br",
+        "https://www.santander.com.br",
+        "https://www.bb.com.br",
+        "https://nubank.com.br"
     },
     "operadoras": {
         "https://www.oi.com.br/",
         "https://www.claro.com.br/",
-        "https://www.tim.com.br/pe",
-        "https://www.tim.com.br/",
-        "https://vivo.com.br/para-voce",
-        "https://vivo.com.br/"
+        "https://www.tim.com.br"
+        "https://vivo.com.br"
     },
     "jogos": {
-        "https://store.steampowered.com/",
-        "https://store.epicgames.com/",
-        "https://www.nintendo.com/",
+        "https://store.steampowered.com",
+        "https://store.epicgames.com",
+        "https://www.nintendo.com",
         "https://www.crunchyroll.com",
-        "https://www.ea.com/pt-br"
+        "https://www.ea.com"
     },
     "governo": {
-        "https://www.gov.br/",
-        "https://www.detran.pe.gov.br/",
-        "https://servicos.compesa.com.br/",
-        "https://www.neoenergia.com/",
-        "https://www.ufrpe.br/",
-        "https://www.ufpe.br/"
+        "https://www.gov.br",
+        "https://www.detran.pe.gov.br",
+        "https://servicos.compesa.com.br",
+        "https://www.neoenergia.com",
+        "https://www.ufrpe.br",
+        "https://www.ufpe.br"
     }
 }
 
@@ -104,7 +102,7 @@ def atualizar_dominios_permitidos():
                 dominio_base = ".".join(netloc_parts[-2:])
             dominios_permitidos[dominio_base] = categoria
     
-    dominios_permitidos["uol.com.br"] = "site"
+    dominios_permitidos["mercadolivre.com.br"] = "e-commerce"
 
 atualizar_dominios_permitidos()
 
@@ -112,25 +110,27 @@ def validar_url():
     while True:
         url = input("Digite uma URL: ").strip().lower()
         try:
+            # Validar a URL usando Pydantic
             url_validada = URLModel(url=url)
             url_str = str(url_validada.url).rstrip("/")
             
-            parsed_url = urlparse(url_str)
-            url_cortada = f"{parsed_url.scheme}://{parsed_url.netloc}"
+            # Cortar a URL na primeira barra
+            url_cortada = url_str.split('/')[0] + '//' + url_str.split('/')[2]
             
-            netloc_parts = parsed_url.netloc.split(".")
-            if netloc_parts[-1] == "br":
-                dominio_digitado = ".".join(netloc_parts[-2:])
-            else:
-                dominio_digitado = ".".join(netloc_parts[-2:])
+            # Verificar se a URL cortada está no dicionário de URLs válidas
+            encontrada = False
+            for categoria, lista_urls in urls.items():
+                if url_cortada in lista_urls:
+                    print(f"✅ URL válida e segura: {url_cortada} (Tipo: {categoria})")
+                    url_historico.append(url_cortada)
+                    encontrada = True
+                    break
             
-            if dominio_digitado in dominios_permitidos:
-                categoria = dominios_permitidos[dominio_digitado]
-                print(f"✅ URL válida e segura: {url_cortada} (Tipo: {categoria})")
-                url_historico.append(url_cortada)
-                return url_cortada
+            if not encontrada:
+                print(f"❌ URL inválida: Não está na lista segura.")
             
-            print(f"❌ URL inválida: Não está na lista segura.")
+            return url_cortada
+        
         except ValidationError as e:
             print(f"❌ URL inválida: {e.errors()[0]['msg']}")
         print("Tente novamente.")
