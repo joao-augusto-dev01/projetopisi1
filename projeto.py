@@ -110,14 +110,11 @@ def validar_url():
     while True:
         url = input("Digite uma URL: ("https://www.mercadolivre.com.br").strip().lower()
         try:
-            # Validar a URL usando Pydantic
             url_validada = URLModel(url=url)
             url_str = str(url_validada.url).rstrip("/")
             
-            # Cortar a URL na primeira barra
             url_cortada = url_str.split('/')[0] + '//' + url_str.split('/')[2]
-            
-            # Verificar se a URL cortada está no dicionário de URLs válidas
+    
             encontrada = False
             for categoria, lista_urls in urls.items():
                 if url_cortada in lista_urls:
