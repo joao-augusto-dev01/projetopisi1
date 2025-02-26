@@ -108,7 +108,7 @@ atualizar_dominios_permitidos()
 
 def validar_url():
     while True:
-        url = input("Digite uma URL: ").strip().lower()
+        url = input("Digite uma URL: ("https://www.mercadolivre.com.br").strip().lower()
         try:
             # Validar a URL usando Pydantic
             url_validada = URLModel(url=url)
