@@ -108,7 +108,7 @@ atualizar_dominios_permitidos()
 
 def validar_url():
     while True:
-        url = input("Digite uma URL: ("https://www.mercadolivre.com.br").strip().lower()
+        url = input("Digite uma URL: ").strip().lower()
         try:
             url_validada = URLModel(url=url)
             url_str = str(url_validada.url).rstrip("/")
