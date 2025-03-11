@@ -27,8 +27,8 @@ urls = {
         "https://nubank.com.br"
     },
     "operadoras": {
-        "https://www.oi.com.br/",
-        "https://www.claro.com.br/",
+        "https://www.oi.com.br",
+        "https://www.claro.com.br",
         "https://www.tim.com.br"
         "https://vivo.com.br"
     },
@@ -270,6 +270,15 @@ def excluir_historico_telefones():
         print("Histórico de números de telefone excluído com sucesso.")
     input("Pressione Enter para continuar...")
 
+def visualizar_urls_por_categoria():
+    limpar_terminal()
+    print("\n--- Visualizar URLs Disponíveis ---")
+    for categoria, lista_urls in urls.items():
+        print(f"\nCategoria: {categoria.capitalize()}")
+        for url in lista_urls:
+            print(f"- {url}")
+    input("\nPressione Enter para continuar...")
+
 def menu_principal():
     while True:
         limpar_terminal()
@@ -282,6 +291,7 @@ def menu_principal():
         print("[6] ---Validar Número de Telefone---")
         print("[7] ---Gerenciar Números de Telefone e Urls---")
         print("[8] ---Visualizar Histórico---")
+        print("[9] ---Visualizar URLs Disponíveis---")
         escolha = input("Escolha uma opção: ").strip()
         
         if escolha == "1":
@@ -386,6 +396,8 @@ def menu_principal():
                     break
                 else:
                     print("Opção inválida. Tente novamente.")
+        elif escolha == "9":
+            visualizar_urls_por_categoria()
         else:
             print("Opção inválida. Tente novamente.")
 
