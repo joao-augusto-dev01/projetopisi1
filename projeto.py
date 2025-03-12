@@ -270,7 +270,7 @@ def excluir_historico_telefones():
         print("Histórico de números de telefone excluído com sucesso.")
     input("Pressione Enter para continuar...")
 
-def visualizar_urls_por_categoria():
+def visualizar_urls_disponiveis():
     limpar_terminal()
     print("\n--- Visualizar URLs Disponíveis ---")
     for categoria, lista_urls in urls.items():
@@ -397,7 +397,7 @@ def menu_principal():
                 else:
                     print("Opção inválida. Tente novamente.")
         elif escolha == "9":
-            visualizar_urls_por_categoria()
+            visualizar_urls_disponiveis()
         else:
             print("Opção inválida. Tente novamente.")
 
