@@ -1,4 +1,4 @@
-# Validador de URLs e Telefones LinkShield
+# LinkShield
 
 ## Descrição
 Este é um aplicativo em Python para validar URLs e números de telefone, armazenar histórico de URLs e telefones validados, bem como gerenciar cadastros de e-mails e senhas. O 
