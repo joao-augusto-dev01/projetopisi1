@@ -2,6 +2,7 @@ import os
 import re
 from pydantic import BaseModel, HttpUrl, ValidationError
 from urllib.parse import urlparse
+import random
 
 class URLModel(BaseModel):
     url: HttpUrl
@@ -70,22 +71,23 @@ def validar_email():
 def validar_senha():
     while True:
         senha = input("Digite sua senha (Ex: Senha123): ").strip()
-        erros = []
-        if len(senha) < 8:
-            erros.append("precisa ter pelo menos 8 caracteres")
-        if not re.search(r"[A-Z]", senha):
-            erros.append("precisa conter pelo menos uma letra maiúscula")
-        if not re.search(r"[0-9]", senha):
-            erros.append("precisa conter pelo menos um número")
-        
-        if erros:
-            print(f"Senha inválida: {', '.join(erros)}")
-            continue
-        confirmar_senha = input("Confirme sua senha: ").strip()
-        if confirmar_senha == senha:
-            return senha
+        if len(senha) >= 8 and re.search(r"[A-Z]", senha) and re.search(r"[0-9]", senha):
+            confirmar_senha = input("Confirme sua senha: ").strip()
+            if confirmar_senha == senha:
+                codigo = random.randint(100000, 999999)
+                print(f"Seu código de verificação é: {codigo}")
+                while True:
+                    codigo_digitado = input("Digite o código de verificação: ").strip()
+                    if codigo_digitado == str(codigo):
+                        print("Código correto! Cadastro confirmado.")
+                        return senha
+                    else:
+                        print("Código incorreto. Tente novamente.")
+            else:
+                print("As senhas não coincidem. Tente novamente.")
         else:
-            print("As senhas não coincidem.")
+            print("Senha inválida. Deve conter pelo menos 8 caracteres, uma letra maiúscula e um número.")
+
 
 dominios_permitidos = {}
 
