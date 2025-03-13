@@ -52,5 +52,5 @@ sistema também permite adicionar e remover URLs e números de telefone de arqui
 - Expansão das categorias de URLs seguras.
 
 ## Autor
-Desenvolvido por [João Augusto].
+Desenvolvido por João Augusto.
 
