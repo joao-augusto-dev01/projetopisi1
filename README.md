@@ -24,6 +24,7 @@ sistema também permite adicionar e remover URLs e números de telefone de arqui
   - `re` para expressões regulares na validação de emails e telefones.
   - `pydantic` para validação de URLs.
   - `urllib.parse` para manipulação de URLs.
+  - `random` para gerar um código aleátorio para validação em duas etapas.
 
 ## Como Executar o Projeto
 1. Certifique-se de ter o **Python 3** instalado em seu sistema.
